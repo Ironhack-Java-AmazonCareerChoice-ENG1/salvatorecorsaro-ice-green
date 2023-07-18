@@ -1,0 +1,24 @@
+### Get all shops
+GET localhost:8080/shops
+
+### Get Shop by id
+GET localhost:8080/shops/2
+
+### Create a new Shop
+POST localhost:8080/shops
+Content-Type: application/json
+
+{
+  "name": "Shop {{$random.alphanumeric(5)}}",
+  "location": "Madrid"
+}
+
+### Add Review to Shop
+POST localhost:8080/shops/2/reviews
+Content-Type: application/json
+
+{
+  "username" : "{{$random.email}}",
+  "comment" : "{{$random.alphabetic(15)}}",
+  "rating" : {{$random.integer(5)}}
+}
