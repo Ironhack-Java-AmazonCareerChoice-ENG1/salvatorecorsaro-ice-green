@@ -1,6 +1,6 @@
 package com.icegreen.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,15 +11,15 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 @Entity
 @Data
 public class Review {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String username;
     private String comment;
     private int rating;
@@ -27,6 +27,6 @@ public class Review {
     private ZonedDateTime createdAt;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonIgnore
     private Shop shop;
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +16,10 @@ public class ShopService {
 
     private final ShopRepository shopRepository;
 
-    public List<Shop> findAll() {
+    public List<Shop> findAll(Optional<String> location) {
+        if (location.isPresent()) {
+            return shopRepository.findAllByLocation(location.get());
+        }
         return shopRepository.findAll();
     }
 

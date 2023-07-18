@@ -1,6 +1,5 @@
 package com.icegreen.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +23,6 @@ public class Shop {
     private String location;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 
     public void addReview(Review review) {
