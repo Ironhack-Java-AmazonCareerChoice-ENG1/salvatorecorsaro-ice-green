@@ -1,5 +1,7 @@
 package com.icegreen.service;
 
+import com.icegreen.dto.UpdateShopDto;
+import com.icegreen.expeptions.IceCreamException;
 import com.icegreen.model.Review;
 import com.icegreen.model.Shop;
 import com.icegreen.repository.ShopRepository;
@@ -29,6 +31,9 @@ public class ShopService {
 
     @Transactional
     public Shop save(Shop shop) {
+        if (shop.getDescription().equals("error")) {
+            throw new IceCreamException("Oh oh there is an Error");
+        }
         return shopRepository.save(shop);
     }
 
@@ -37,5 +42,36 @@ public class ShopService {
         Shop shop = shopRepository.findById(id).orElseThrow();
         shop.addReview(review);
         return shopRepository.save(shop);
+    }
+
+    @Transactional
+    public Shop update(Long idOfTheShop, UpdateShopDto shop) {
+        var x = shopRepository.findById(idOfTheShop);
+        if (x.isPresent()) {
+            var entity = x.get();
+            entity.setName(shop.getName());
+            entity.setLocation(shop.getLocation());
+            entity.setDescription(shop.getDescription());
+            return shopRepository.save(entity);
+        } else {
+            throw new RuntimeException("Shop not found");
+        }
+
+    }
+
+    @Transactional
+    public Shop updateName(Long id, String name) {
+        var x = shopRepository.findById(id);
+        if (x.isPresent()) {
+            var entity = x.get();
+            entity.setName(name);
+            return shopRepository.save(entity);
+        } else {
+            throw new RuntimeException("Shop not found");
+        }
+    }
+
+    public void delete(Long id) {
+        shopRepository.deleteById(id);
     }
 }

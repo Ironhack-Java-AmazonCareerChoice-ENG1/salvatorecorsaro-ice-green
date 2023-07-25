@@ -10,7 +10,8 @@ Content-Type: application/json
 
 {
   "name": "Shop {{$random.alphanumeric(5)}}",
-  "location": "Madrid"
+  "location": "Madrid",
+    "description": "   "
 }
 
 ### Add Review to Shop
@@ -18,7 +19,49 @@ POST localhost:8080/shops/1/reviews
 Content-Type: application/json
 
 {
-  "username" : "{{$random.email}}",
+  "username" : "hello@mail",
   "comment" : "{{$random.alphabetic(15)}}",
   "rating" : {{$random.integer(5)}}
 }
+
+### Put Shop
+PUT localhost:8080/shops/1
+Content-Type: application/json
+
+{
+  "name": "Shop {{$random.alphanumeric(5)}}",
+  "location": "Toronto",
+  "description": "{{$random.alphabetic(15)}}"
+}
+
+### Patch Shop name
+PATCH localhost:8080/shops/1
+Content-Type: plain/text
+
+Hello IceCream
+
+### Delete Shop
+DELETE localhost:8080/shops/1
+
+
+### Create a new Shop with no name
+POST localhost:8080/shops
+Content-Type: application/json
+
+{
+  "name": "Heyyy",
+  "location": "",
+  "description": ""
+}
+
+### Create a new Shop with no name
+POST localhost:8080/shops
+Content-Type: application/json
+
+{
+  "name": "Heyyy",
+  "location": "",
+  "description": "error"
+}
+
+
